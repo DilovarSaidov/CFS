@@ -19,3 +19,9 @@ export type ExecutiveType = {
   status: string;
   photo: string;
 };
+
+export type CommitteesType = {
+  id: string;
+  title: string;
+  type: string;
+};

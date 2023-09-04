@@ -15,7 +15,6 @@ export class ExecutivesModel {
     const result = await pool.query("SELECT * FROM executives WHERE id = $1", [
       id,
     ]);
-
     return result.rows;
   }
 
@@ -62,5 +61,44 @@ export class ExecutivesModel {
       id,
     ]);
     return result.rowCount;
+  }
+
+  static async EditExecutive(
+    id: string,
+    name: string,
+    jobTitle: string,
+    data: string,
+    nationality: string,
+    placeOfStudy: string,
+    previousWork: string,
+    secondPreviousWork: string,
+    thirdPreviousWork: string,
+    appointmentDay: string,
+    status: string,
+    photo: string
+  ): Promise<void> {
+    try {
+      const query = {
+        text: "UPDATE menus SET name = $2, job_title = $3, data = $4, nationality = $5, place_of_study = $6, previous_work = $7, second_previous_work = $8, third_previous_works = $9, appointment_day = $10, status =$11, photo = $12  WHERE id = $1",
+        values: [
+          id,
+          name,
+          jobTitle,
+          data,
+          nationality,
+          placeOfStudy,
+          previousWork,
+          secondPreviousWork,
+          thirdPreviousWork,
+          appointmentDay,
+          status,
+          photo,
+        ],
+      };
+      await pool.query(query);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
