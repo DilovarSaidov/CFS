@@ -10,7 +10,15 @@ router.get("/committees", CommitteesController.getAllCommittees());
 router.get("/commitees-central", CommitteesController.getCentralDevice);
 
 // Send committees by type(management committee)
-router.get("committes-management", CommitteesController.getManagementCommitte);
+router.get("/committes-management", CommitteesController.getManagementCommitte);
 
 // Send committees by type (institution)
-router.get("committees-institution", CommitteesController.getInstitution);
+router.get("/committees-institution", CommitteesController.getInstitution);
+
+// Add new committee
+router.post("/add-committee", CommitteesController.addcommittee);
+
+// Delete committee
+router.delete("/edit-committee", CommitteesController.editCommittee());
+
+export = router;
