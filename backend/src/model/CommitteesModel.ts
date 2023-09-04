@@ -31,4 +31,44 @@ export class CommitteesModel {
     );
     return result.rows;
   }
+
+  // Adding committee
+  static async AddCommitte(title: string, type: string) {
+    try {
+      const query = {
+        text: "INSERT INTO committees (title, type)",
+        values: [title, type],
+      };
+      await pool.query(query);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  // Delete committee
+  static async DeleteCommittee(id: string) {
+    const result = await pool.query("DELETE FROM committees WHERE id = $1", [
+      id,
+    ]);
+    return result.rowCount;
+  }
+
+  // Edit committee by id
+  static async EditCommittee(
+    id: string,
+    title: string,
+    type: string
+  ): Promise<void> {
+    try {
+      const query = {
+        text: "UPDATE committees SET title = $2, type = $3 WHERE id = $1",
+        values: [id, title, type],
+      };
+      await pool.query(query);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }

@@ -79,7 +79,7 @@ export class ExecutivesModel {
   ): Promise<void> {
     try {
       const query = {
-        text: "UPDATE menus SET name = $2, job_title = $3, data = $4, nationality = $5, place_of_study = $6, previous_work = $7, second_previous_work = $8, third_previous_works = $9, appointment_day = $10, status =$11, photo = $12  WHERE id = $1",
+        text: "UPDATE executives SET name = $2, job_title = $3, data = $4, nationality = $5, place_of_study = $6, previous_work = $7, second_previous_work = $8, third_previous_works = $9, appointment_day = $10, status =$11, photo = $12  WHERE id = $1",
         values: [
           id,
           name,

@@ -90,7 +90,7 @@ export default class ExecutivesController {
       }
     } catch (error) {
       console.error(error);
-      return res.status(500).json("Failed to delete  dish");
+      return res.status(500).json("Failed to delete executive");
     }
   }
 
