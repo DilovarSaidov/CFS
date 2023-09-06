@@ -69,18 +69,30 @@ export default class CommitteesController {
   }
 
   // Adding committee
-  static addcommittee() {
-    return async (req: Request, res: Response) => {
+  // static addcommittee() {
+  //   return async (req: Request, res: Response) => {
+  //     const { title, type } = req.body;
+  //     try {
+  //       await CommitteesModel.AddCommittee(title, type);
+  //       return res.status(201).json("Committee added successfully");
+  //     } catch (error) {
+  //       console.error(error);
+  //       return res.status(500).json("Failed to add committee");
+  //     }
+  //   };
+  // }
+
+  static addCommittee = [
+    async (req: Request, res: Response) => {
       const { title, type } = req.body;
       try {
-        await CommitteesModel.AddCommitte(title, type);
-        return res.status(201).json("Committee added successfully");
+        await CommitteesModel.AddCommittee(title, type);
       } catch (error) {
         console.error(error);
-        return res.status(500).json("Failed to add committee");
+        return res.status(500).json({ error: "Failed to add committee" });
       }
-    };
-  }
+    },
+  ];
 
   // Delete committee
   static async deleteCommittee(req: any, res: Response) {

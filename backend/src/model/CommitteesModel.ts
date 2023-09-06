@@ -33,10 +33,10 @@ export class CommitteesModel {
   }
 
   // Adding committee
-  static async AddCommitte(title: string, type: string) {
+  static async AddCommittee(title: string, type: string) {
     try {
       const query = {
-        text: "INSERT INTO committees (title, type)",
+        text: "INSERT INTO committees (title, type) VALUES ($1, $2)",
         values: [title, type],
       };
       await pool.query(query);
