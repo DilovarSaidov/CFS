@@ -83,11 +83,12 @@ export default class ExecutivesController {
     const { id } = req.query;
     try {
       const RowCount = await ExecutivesModel.DeleteExecutive(id);
+
       if (RowCount === 0) {
         return res.status(404).json("Executive not found");
-      } else {
-        return res.status(200).json("Executive deleted successfully");
       }
+
+      return res.status(200).json("Executive deleted successfully");
     } catch (error) {
       console.error(error);
       return res.status(500).json("Failed to delete executive");

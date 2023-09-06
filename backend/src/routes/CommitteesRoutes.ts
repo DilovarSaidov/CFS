@@ -16,9 +16,12 @@ router.get("/committes-management", CommitteesController.getManagementCommitte);
 router.get("/committees-institution", CommitteesController.getInstitution);
 
 // Add new committee
-router.post("/add-committee", CommitteesController.addcommittee);
+router.post("/committee-add", CommitteesController.addcommittee);
+
+// Edit committee
+router.put("/committee-edit", CommitteesController.editCommittee());
 
 // Delete committee
-router.delete("/edit-committee", CommitteesController.editCommittee());
+router.delete("/committee-delete", CommitteesController.deleteCommittee);
 
 export = router;

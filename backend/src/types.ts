@@ -25,3 +25,14 @@ export type CommitteesType = {
   title: string;
   type: string;
 };
+
+export type News = {
+  id: string;
+  title: string;
+  attendees: string;
+  events: string;
+  secondEvents: string | null;
+  thirdEvents: string | null;
+  conclusion: string | null;
+  photo: string;
+};
