@@ -17,11 +17,12 @@ export class NewsModel {
     secondEvents: string | null,
     thirdEvents: string | null,
     conclusion: string | null,
+    data: string | null,
     photo: string
   ) {
     try {
       const query = {
-        text: "INSERT INTO news (title, attendees, events, second_events, third_events, conclusion, photo) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        text: "INSERT INTO news (title, attendees, events, second_events, third_events, conclusion, data, photo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
         values: [
           title,
           attendees,
@@ -29,6 +30,7 @@ export class NewsModel {
           secondEvents,
           thirdEvents,
           conclusion,
+          data,
           photo,
         ],
       };
@@ -55,11 +57,12 @@ export class NewsModel {
     secondEvents: string | null,
     thirdEvents: string | null,
     conclusion: string | null,
+    data: string | null,
     photo: string
   ): Promise<void> {
     try {
       const query = {
-        text: "UPDATE news SET title = $2, attendees = $3, events = $4, second_events = $5, third_events = $6, conclusion = $7, photo = $8 WHERE id = $1",
+        text: "UPDATE news SET title = $2, attendees = $3, events = $4, second_events = $5, third_events = $6, conclusion = $7, data = $8 photo = $9 WHERE id = $1",
         values: [
           id,
           title,
@@ -68,6 +71,7 @@ export class NewsModel {
           secondEvents,
           thirdEvents,
           conclusion,
+          data,
           photo,
         ],
       };

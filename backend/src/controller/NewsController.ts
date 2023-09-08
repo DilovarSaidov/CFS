@@ -36,6 +36,7 @@ export default class NewsController {
         secondEvents,
         thirdEvents,
         conclusion,
+        data,
       } = req.body;
       try {
         const photo = Buffer.from(req.file.buffer).toString("base64");
@@ -46,6 +47,7 @@ export default class NewsController {
           secondEvents,
           thirdEvents,
           conclusion,
+          data,
           photo
         );
         return res.status(201).json("News added successfully");
@@ -86,6 +88,7 @@ export default class NewsController {
           secondEvents,
           thirdEvents,
           conclusion,
+          data,
         } = req.body;
         try {
           const photo = Buffer.from(req.file.buffer).toString("base64");
@@ -97,6 +100,7 @@ export default class NewsController {
             secondEvents,
             thirdEvents,
             conclusion,
+            data,
             photo
           );
           return res.status(201).json("News edited successfully");

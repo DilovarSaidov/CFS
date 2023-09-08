@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { title } from "process";
 import { CommitteesModel } from "../model/CommitteesModel";
 
 export default class CommitteesController {
@@ -36,11 +35,11 @@ export default class CommitteesController {
     };
   }
 
-  // Send committees by type(management committee)
-  static getManagementCommitte() {
+  // Send committees by type(safety committee)
+  static getSafetyCommitte() {
     return async (req: Request, res: Response) => {
       try {
-        const list = await CommitteesModel.GetManagementCommittee();
+        const list = await CommitteesModel.GetCentralDevice();
         if (list.length === 0) {
           return res.status(404).json({ error: "Failed to get committees" });
         }
@@ -69,30 +68,16 @@ export default class CommitteesController {
   }
 
   // Adding committee
-  // static addcommittee() {
-  //   return async (req: Request, res: Response) => {
-  //     const { title, type } = req.body;
-  //     try {
-  //       await CommitteesModel.AddCommittee(title, type);
-  //       return res.status(201).json("Committee added successfully");
-  //     } catch (error) {
-  //       console.error(error);
-  //       return res.status(500).json("Failed to add committee");
-  //     }
-  //   };
-  // }
-
-  static addCommittee = [
-    async (req: Request, res: Response) => {
-      const { title, type } = req.body;
-      try {
-        await CommitteesModel.AddCommittee(title, type);
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: "Failed to add committee" });
-      }
-    },
-  ];
+  static async addCommittee(req: Request, res: Response) {
+    const { title, category } = req.body;
+    try {
+      await CommitteesModel.AddCommittee(title, category);
+      return res.json({ success: true, message: "Adding successful" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Failed to add committee" });
+    }
+  }
 
   // Delete committee
   static async deleteCommittee(req: any, res: Response) {
@@ -114,9 +99,9 @@ export default class CommitteesController {
   // Edit committee
   static editCommittee() {
     return async (req: Request, res: Response) => {
-      const { id, title, type } = req.body;
+      const { id, title, category } = req.body;
       try {
-        await CommitteesModel.EditCommittee(id, title, type);
+        await CommitteesModel.EditCommittee(id, title, category);
         return res.status(201).json("Committee edited successfully");
       } catch (error) {
         console.error(error);

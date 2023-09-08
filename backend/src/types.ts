@@ -21,7 +21,7 @@ export type ExecutiveType = {
 };
 
 export type CommitteesType = {
-  id: string;
+  id: number;
   title: string;
   type: string;
 };
@@ -34,5 +34,6 @@ export type News = {
   secondEvents: string | null;
   thirdEvents: string | null;
   conclusion: string | null;
+  data: string | null;
   photo: string;
 };

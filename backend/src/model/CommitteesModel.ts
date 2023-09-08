@@ -1,3 +1,4 @@
+import { error } from "console";
 import { pool } from "../db";
 import { CommitteesType } from "../types";
 
@@ -8,36 +9,36 @@ export class CommitteesModel {
     return result.rows;
   }
 
-  // Send committees by type(central device)
+  // Send committees by category(central device)
   static async GetCentralDevice(): Promise<CommitteesType[]> {
     const result = await pool.query(
-      "SELECT * FROM committees WHERE type = 'central_device'"
+      "SELECT * FROM committees WHERE category = 'дастгоҳи марказии'"
     );
     return result.rows;
   }
 
-  // Send committees by type(management committee)
-  static async GetManagementCommittee(): Promise<CommitteesType[]> {
+  // Send committees by category(safety committee)
+  static async GetSafetyCommittee(): Promise<CommitteesType[]> {
     const result = await pool.query(
-      "SELECT * FROM committees WHERE type = 'management_committee'"
+      "SELECT * FROM committees WHERE category = 'бехатарии озуқавории'"
     );
     return result.rows;
   }
 
-  // Send committees by type (institution)
+  // Send committees by category (institution)
   static async getInstitution(): Promise<CommitteesType[]> {
     const result = await pool.query(
-      "SELECT * FROM committees WHERE type = 'institution_committee'"
+      "SELECT * FROM committees WHERE category = 'муассисаю ташкилотҳо'"
     );
     return result.rows;
   }
 
   // Adding committee
-  static async AddCommittee(title: string, type: string) {
+  static async AddCommittee(title: string, category: string) {
     try {
       const query = {
-        text: "INSERT INTO committees (title, type) VALUES ($1, $2)",
-        values: [title, type],
+        text: "INSERT INTO committees (title, category) VALUES ($1, $2)",
+        values: [title, category],
       };
       await pool.query(query);
     } catch (error) {
@@ -47,7 +48,7 @@ export class CommitteesModel {
   }
 
   // Delete committee
-  static async DeleteCommittee(id: string) {
+  static async DeleteCommittee(id: number) {
     const result = await pool.query("DELETE FROM committees WHERE id = $1", [
       id,
     ]);
@@ -56,14 +57,14 @@ export class CommitteesModel {
 
   // Edit committee by id
   static async EditCommittee(
-    id: string,
+    id: number,
     title: string,
-    type: string
+    category: string
   ): Promise<void> {
     try {
       const query = {
-        text: "UPDATE committees SET title = $2, type = $3 WHERE id = $1",
-        values: [id, title, type],
+        text: "UPDATE committees SET title = $2, category = $3 WHERE id = $1",
+        values: [id, title, category],
       };
       await pool.query(query);
     } catch (error) {
