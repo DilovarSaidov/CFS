@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import { NewsModel } from "../model/NewsModel";
 import multer from "multer";
-import { title } from "process";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 export default class NewsController {
-  // Send all news
-  static getAllNews() {
+  // Send all news for admin
+  static getAllNewsForAdmin() {
     return async (req: Request, res: Response) => {
       try {
-        const list = await NewsModel.AllNews();
+        const list = await NewsModel.AllNewsForAdmin();
 
         if (list.length === 0) {
           return res.status(404).json({ error: "News not found" });
@@ -23,6 +22,39 @@ export default class NewsController {
         return res.status(500).json({ error: "Failed to get news" });
       }
     };
+  }
+
+  // Send front page news
+  static getFrontPageNews() {
+    return async (req: Request, res: Response) => {
+      try {
+        const list = await NewsModel.GetFrontPageNews();
+        if (list.length === 0) {
+          return res.status(404).json({ error: "News not found" });
+        }
+        return res.send(list);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  }
+
+  // Send news by id
+  static async getNewsById(req: any, res: Response) {
+    const { id } = req.query;
+
+    try {
+      const news = await NewsModel.GetNewsById(id);
+
+      if (news === null || undefined) {
+        return res.status(404).json({ error: "News not found" });
+      }
+
+      return res.send(news);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Failde to get news" });
+    }
   }
 
   // Add new  news

@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/executives", ExecutivesController.getAllExecutives());
 
 // Send executives by id
-router.get("/executive", ExecutivesController.getExecutivesById);
+router.post("/executive", ExecutivesController.getExecutivesById);
 
 // Add new news
 router.post("/add-executive", ExecutivesController.addExecutive);

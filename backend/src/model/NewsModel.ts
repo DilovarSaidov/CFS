@@ -1,11 +1,22 @@
 import { pool } from "../db";
-import { News } from "../types";
+import { NewsForAdmin, FrontPageNews } from "../types";
 
 export class NewsModel {
-  // Send all news
-  static async AllNews(): Promise<News[]> {
+  // Send all news for admin
+  static async AllNewsForAdmin(): Promise<NewsForAdmin[]> {
     const result = await pool.query("SELECT * FROM news");
 
+    return result.rows;
+  }
+
+  // front page news
+  static async GetFrontPageNews(): Promise<FrontPageNews[]> {
+    const result = await pool.query("SELECT id, title, photo FROM news");
+    return result.rows;
+  }
+
+  static async GetNewsById(id: string) {
+    const result = await pool.query("SELECT * FROM news WHERE id = $1", [id]);
     return result.rows;
   }
 

@@ -1,3 +1,4 @@
+// Types for executives
 export type ExecutivesTypes = {
   id: string;
   name: string;
@@ -20,13 +21,15 @@ export type ExecutiveType = {
   photo: string;
 };
 
+// Types for committees
 export type CommitteesType = {
   id: number;
   title: string;
   type: string;
 };
 
-export type News = {
+// Types fro news
+export type NewsForAdmin = {
   id: string;
   title: string;
   attendees: string;
@@ -35,5 +38,11 @@ export type News = {
   thirdEvents: string | null;
   conclusion: string | null;
   data: string | null;
+  photo: string;
+};
+
+export type FrontPageNews = {
+  id: string;
+  title: string;
   photo: string;
 };
