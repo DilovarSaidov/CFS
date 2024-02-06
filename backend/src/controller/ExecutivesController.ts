@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ExecutivesModel } from "../model/ExecutivesModel";
 import multer from "multer";
+import sharp from "sharp";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -57,7 +58,11 @@ export default class ExecutivesController {
         status,
       } = req.body;
       try {
-        const photo = Buffer.from(req.file.buffer).toString("base64");
+        const photoBuffer = req.file.buffer;
+        const resizedPhotoBuffer = await sharp(photoBuffer)
+          .resize({ width: 800, height: 600 })
+          .toBuffer();
+        const photo = resizedPhotoBuffer.toString("base64");
         await ExecutivesModel.AddExecutive(
           name,
           jobTitle,
@@ -113,7 +118,11 @@ export default class ExecutivesController {
           status,
         } = req.body;
         try {
-          const photo = Buffer.from(req.file.buffer).toString("base64");
+          const photoBuffer = req.file.buffer;
+          const resizedPhotoBuffer = await sharp(photoBuffer)
+            .resize({ width: 800, height: 600 })
+            .toBuffer();
+          const photo = resizedPhotoBuffer.toString("base64");
           await ExecutivesModel.EditExecutive(
             id,
             name,

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { NewsModel } from "../model/NewsModel";
 import multer from "multer";
+import sharp from "sharp";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -46,7 +47,7 @@ export default class NewsController {
     try {
       const news = await NewsModel.GetNewsById(id);
 
-      if (news === null || undefined) {
+      if (!news) {
         return res.status(404).json({ error: "News not found" });
       }
 
@@ -71,7 +72,12 @@ export default class NewsController {
         data,
       } = req.body;
       try {
-        const photo = Buffer.from(req.file.buffer).toString("base64");
+        const photoBuffer = req.file.buffer;
+        const resizedPhotoBuffer = await sharp(photoBuffer)
+          .resize({ width: 800, height: 600 })
+          .toBuffer();
+        const photo = resizedPhotoBuffer.toString("base64");
+
         await NewsModel.AddNews(
           title,
           attendees,
@@ -82,6 +88,7 @@ export default class NewsController {
           data,
           photo
         );
+
         return res.status(201).json("News added successfully");
       } catch (error) {
         console.error(error);
@@ -123,7 +130,11 @@ export default class NewsController {
           data,
         } = req.body;
         try {
-          const photo = Buffer.from(req.file.buffer).toString("base64");
+          const photoBuffer = req.file.buffer;
+          const resizedPhotoBuffer = await sharp(photoBuffer)
+            .resize({ width: 800, height: 600 })
+            .toBuffer();
+          const photo = resizedPhotoBuffer.toString("base64");
           await NewsModel.EditNewsById(
             id,
             title,

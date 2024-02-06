@@ -9,7 +9,7 @@ router.get("/news-for-admin", NewsController.getAllNewsForAdmin());
 // Send front page news
 router.get("/news", NewsController.getFrontPageNews());
 
-router.post("/full-info-news", NewsController.getNewsById);
+router.get("/news-by-id", NewsController.getNewsById);
 
 // Add new news
 router.post("/add-news", NewsController.addNews);

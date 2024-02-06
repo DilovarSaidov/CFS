@@ -7,10 +7,10 @@ const router = express.Router();
 router.get("/executives", ExecutivesController.getAllExecutives());
 
 // Send executives by id
-router.post("/executive", ExecutivesController.getExecutivesById);
+router.get("/executive", ExecutivesController.getExecutivesById);
 
 // Add new news
-router.post("/add-executive", ExecutivesController.addExecutive);
+router.get("/add-executive", ExecutivesController.addExecutive);
 
 // delete news
 router.delete("/delete-executive", ExecutivesController.deleteExecutive);
